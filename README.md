@@ -49,9 +49,8 @@
         不使用workerId：  
            对于failed的任务等待超时即可。但是性能要损失，相当于对于操作慢的worker依然可以请求任务。
          master保留中间结果的位置和大小
-       使用多线程模拟多服务器，周期性向worker发送心跳检测如果worker失联一段时间，master将worker标记成failed  
-       worker失效之后，已完成的map task被重新标记为idle已完成的reduce task不需要改变原因是：map的结果被写在local disk，  
-       worker machine 宕机会导致map的结果丢失；reduce结果存储在GFS，不会随着machine down丢失  
-       对于in-progress 且超时的任务，启动backup执行  
+       使用多线程模拟多服务器，周期性向worker发送心跳检测如果worker失联一段时间，master将worker标记成failed worker失效之后，  
+       已完成的map task被重新标记为idle已完成的reduce task不需要改变原因是：map的结果被写在local disk，worker machine 宕机会导致map的结果丢失；
+       reduce结果存储在GFS，不会随着machine down丢失对于in-progress 且超时的任务，启动backup执行  
       
        
